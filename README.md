@@ -34,6 +34,6 @@ Take a look at [this demo][demo] which uses all features available. You may also
 
 [MIT][mit] licensed.
 
-[demo]:http://rafaelrinaldi.github.com/file-size
-[docs]:./file-size/tree/master/docs
+[demo]:./file-size/tree/gh-pages
+[docs]:./file-size/tree/gh-pages/docs
 [mit]:./file-size/tree/master/LICENSE
