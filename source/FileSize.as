@@ -45,7 +45,7 @@ package {
 			// If `ExternalInterface` isn't available, don't even start.
 			if(!ExternalInterface.available) return;
 
-			ExternalInterface.addCallback("load", load);
+			ExternalInterface.addCallback("get", get);
 			ExternalInterface.addCallback("cancel", cancel);
 
 			loader = new URLLoader;
@@ -53,7 +53,7 @@ package {
 			loader.addEventListener(IOErrorEvent.IO_ERROR, loaderIOErrorHandler);
 			
 			// By default it starts loading the file set by flashvars.
-			load(FILE);
+			get(FILE);
 
 		}
 		
@@ -65,7 +65,7 @@ package {
 		* @param p_url URL of file to be loaded.
 		*
 		**/
-		public function load( p_url : String ) : void {
+		public function get( p_url : String ) : void {
 
 			if(p_url == "" || p_url == null) {
 				ExternalInterface.call(ERROR, "Invalid url. Nothing will be loaded.");
