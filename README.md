@@ -10,6 +10,9 @@ The compiled .swf file weights **1KB** and runs under **Flash Player 9**.
 This tool currently retrieves the total bytes of a file by making a request. As soon as the bytes information are available the request is automatically cancelled.
 In short, it doesn't loads the entire file you want to retrieve information from.
 
+## CDN
+Get always the last version of the compiled .swf [here](https://dl.dropbox.com/u/3420025/CDN/file-size/file_size.swf).
+
 ## Usage
 
 	<!DOCTYPE html>
