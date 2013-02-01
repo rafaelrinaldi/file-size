@@ -1,8 +1,16 @@
+[license]: http://opensource.org/licenses/MIT
+
 # file-size
 Retrieve the total bytes of any file from the client-side.
 
----
-### Usage
+## Specification
+The compiled .swf file weights **1KB** and runs under **Flash Player 9**.
+
+## How it works
+This tool currently retrieves the total bytes of a file by making a request. As soon as the bytes information are available the request is automatically cancelled.
+In short, it doesn't loads the entire file you want to retrieve information from.
+
+## Usage
 
 	<!DOCTYPE html>
 
@@ -28,12 +36,5 @@ Retrieve the total bytes of any file from the client-side.
 
 	</html>
 	
-Take a look at [this demo][demo] which uses all features available. You may also check the complete [documentation][docs].
-
-### License
-
-[MIT][mit] licensed.
-
-[demo]:http://rafaelrinaldi.github.com/file-size
-[docs]:http://rafaelrinaldi.github.com/file-size/docs
-[mit]:./file-size/tree/master/LICENSE
+## License
+[MIT][license].

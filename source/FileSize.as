@@ -3,11 +3,10 @@ package {
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
 	import flash.external.ExternalInterface;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	import flash.text.TextFormat;
-	import flash.text.TextField;
 
 	/**
 	*
@@ -22,22 +21,34 @@ package {
 	
 	public class FileSize extends MovieClip {
 		
-		// On file start loading.
+		/**
+		* On file start loading.
+		**/
 		protected const START : String = "onStart";
 		
-		// On file complete its loading.
+		/**
+		* On file complete its loading.
+		**/
 		protected const COMPLETE : String = "onComplete";
 		
-		// IO error or simply bad url.
+		/**
+		* IO error or simply bad url.
+		**/
 		protected const ERROR : String = "onError";
 		
-		// When current loading is canceled.
+		/**
+		* When current loading is canceled.
+		**/
 		protected const CANCEL : String = "onCancel";
 
-		// File path set by flashvars.
+		/**
+		* File path set by flashvars.
+		**/
 		protected const FILE : String = loaderInfo.parameters["file"] || loaderInfo.parameters["f"];
 
-		// Actual loader.
+		/**
+		* Actual loader.
+		**/
 		protected var loader : URLLoader;
 
 		public function FileSize() {
@@ -50,6 +61,7 @@ package {
 
 			loader = new URLLoader;
 			loader.addEventListener(Event.COMPLETE, loaderCompleteHandler);
+			loader.addEventListener(ProgressEvent.PROGRESS, loaderProgressHandler);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, loaderIOErrorHandler);
 			
 			// By default it starts loading the file set by flashvars.
@@ -78,7 +90,11 @@ package {
 
 		}
 		
-		// Cancel current loading process.
+		/**
+		*
+		* Cancel current loading process.
+		*
+		**/
 		public function cancel() : void
 		{
 
@@ -91,14 +107,38 @@ package {
 			ExternalInterface.call(CANCEL, loader.bytesLoaded);
 
 		}
+
+		/**
+		*
+		* Only loads enough information to retrieve the file size.
+		* @private
+		*
+		**/
+		protected function loaderProgressHandler( event : ProgressEvent ) : void
+		{
+			if(event.bytesTotal && event.bytesTotal > 0) {
+				cancel();
+				loaderCompleteHandler(null);
+			}
+		}
 		
-		// @private
+		/**
+		*
+		* Loader complete handler.
+		* @private
+		*
+		**/
 		protected function loaderCompleteHandler( event : Event ) : void
 		{
 			ExternalInterface.call(COMPLETE, loader.bytesTotal);
 		}
 
-		// @private
+		/**
+		*
+		* IO error handler.
+		* @private
+		*
+		**/
 		protected function loaderIOErrorHandler( event : IOErrorEvent ) : void
 		{
 			ExternalInterface.call(ERROR, event.text);
